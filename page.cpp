@@ -49,59 +49,62 @@ page *page::get_leftmost_ptr(){
 
 uint64_t page::find(char *key){
 	// Please implement this function in project 1.
-	uint16_t num_records = hdr.get_num_data();
-    void *offset_array = hdr.get_offset_array();
-    uint16_t data_region_off = hdr.get_data_region_off();
+	uint32_t num_data = hdr.get_num_data();
+	void* offset_array = hdr.get_offset_array();
 
-    for (int i = 0; i < num_records; i++) {
-        uint16_t offset = *((uint16_t*)offset_array + i);
-        void *record_ptr = data + data_region_off + offset;
-        char *record_key = get_key(record_ptr);
-        if (strcmp(record_key, key) == 0) {
-            return get_val(record_ptr);
-        }
-    }
-    return 0;
+	for (int i = 0; i < num_data; i++) {
+		uint16_t off = *(uint16_t*)((uint64_t)offset_array + i * 2);
+		void* data_region = (void*)((uint64_t)this + (uint64_t)off);
+		char* stored_key = get_key(data_region);
+		uint64_t stored_val = get_val((void*)stored_key);
+
+		if (strcmp(stored_key, key) == 0) {
+			return stored_val;
+		}
+	}
+
+	return 0; // Key not found
 }
 
 bool page::insert(char *key,uint64_t val){
 	// Please implement this function in project 1.
-	 // check if the page is already full
-    if (is_full(get_record_size(key) + sizeof(uint64_t))) {
-        return false;
-    }
+	uint32_t num_data = hdr.get_num_data();
+	void* offset_array = hdr.get_offset_array();
+	uint16_t record_size = sizeof(uint16_t) + strlen(key) + 1 + sizeof(uint64_t);
 
-    uint16_t key_len = strlen(key) + 1;
-    uint16_t record_size = sizeof(uint16_t) + key_len + sizeof(uint64_t);
+	if (is_full(record_size)) {
+		return false; // Page is full
+	}
 
-    // find the correct position to insert the new record
-    uint16_t i;
-    for (i = 0; i < hdr.get_num_data(); i++) {
-        char *cur_key = get_key((char *)hdr.get_offset_array() + i * sizeof(uint16_t));
-        if (strcmp(key, cur_key) < 0) {
-            break;
-        }
-    }
+	// Find the correct position to insert the new record
+	int insert_pos = 0;
+	for (; insert_pos < num_data; insert_pos++) {
+		uint16_t off = *(uint16_t*)((uint64_t)offset_array + insert_pos * 2);
+		void* data_region = (void*)((uint64_t)this + (uint64_t)off);
+		char* stored_key = get_key(data_region);
 
-    // shift the existing records to make room for the new record
-    uint16_t shift_size = hdr.get_data_region_off() - (i * sizeof(uint16_t) + record_size);
-    char *src = data + i * sizeof(uint16_t) + record_size;
-    char *dst = data + (i + 1) * sizeof(uint16_t) + record_size;
-    memmove(dst, src, shift_size);
+		if (strcmp(stored_key, key) > 0) {
+			break;
+		}
+	}
 
-    // update the offset array and insert the new record
-    char *offset_array = (char *)hdr.get_offset_array();
-    uint16_t offset = i * sizeof(uint16_t) + hdr.get_data_region_off() - record_size;
-    *((uint16_t *)(offset_array + i * sizeof(uint16_t))) = offset;
-    *((uint16_t *)(data + offset)) = key_len;
-    memcpy(data + offset + sizeof(uint16_t), key, key_len);
-    *((uint64_t *)(data + offset + sizeof(uint16_t) + key_len)) = val;
+	// Shift the offset array and make space for the new record
+	for (int i = num_data - 1; i >= insert_pos; i--) {
+		uint16_t off = *(uint16_t*)((uint64_t)offset_array + i * 2);
+		*(uint16_t*)((uint64_t)offset_array + (i + 1) * 2) = off + record_size;
+	}
 
-    // update the slot header
-    hdr.set_num_data(hdr.get_num_data() + 1);
-    hdr.set_data_region_off(offset - sizeof(uint16_t));
+	// Update the offset array and copy the new record
+	*(uint16_t*)((uint64_t)offset_array + insert_pos * 2) = hdr.get_data_region_off() - record_size;
+	void* new_record = (void*)((uint64_t)this + (uint64_t)hdr.get_data_region_off() - record_size);
+	put2byte(new_record, record_size);
+	strcpy((char*)((uint64_t)new_record + sizeof(uint16_t)), key);
+	*(uint64_t*)((uint64_t)new_record + sizeof(uint16_t) + strlen(key) + 1) = val;
 
-    return true;
+	// Update the header
+	hdr.set_num_data(num_data + 1);
+	hdr.set_data_region_off(hdr.get_data_region_off() - record_size);
+
 }
 
 page* page::split(char *key, uint64_t val, char** parent_key){
@@ -112,24 +115,20 @@ page* page::split(char *key, uint64_t val, char** parent_key){
 
 bool page::is_full(uint64_t inserted_record_size){
 	// Please implement this function in project 1.
-	// Get the number of records in the page
-    uint32_t num_records = hdr.get_num_data();
+	uint32_t num_data = hdr.get_num_data();
+	void* offset_array = hdr.get_offset_array();
+	uint16_t total_used_space = hdr.get_data_region_off();
 
-    // Get the offset array
-    uint16_t *offset_array = (uint16_t*)hdr.get_offset_array();
+	// Calculate the total space used by the existing records
+	for (int i = 0; i < num_data; i++) {
+		uint16_t off = *(uint16_t*)((uint64_t)offset_array + i * 2);
+		void* data_region = (void*)((uint64_t)this + (uint64_t)off);
+		uint16_t record_size = get_record_size(data_region);
+		total_used_space -= record_size;
+	}
 
-    // Calculate the size of the new record
-    uint16_t new_record_size = num_records * (*offset_array);
-
-    // Calculate the free space available in the page
-    uint16_t free_space = hdr.get_data_region_off() - (num_records * sizeof(uint16_t)) - sizeof(uint16_t) - new_record_size;
-
-    // If there is not enough free space, return true
-    if (free_space < 0) {
-        return true;
-    }
-
-    return false;
+	// Check if there is enough space for the new record
+	return (total_used_space < (inserted_record_size + sizeof(uint16_t)));
 }
 
 void page::defrag(){
@@ -182,7 +181,6 @@ void page::print(){
 		stored_val= get_val((void *)stored_key);
 		printf("==========================================================\n");
 		printf("| data_sz:%u | key: %s | val :%lu |\n",record_size,(char*)stored_key, stored_val,strlen((char*)stored_key));
-
 	}
 }
 

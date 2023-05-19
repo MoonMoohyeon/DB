@@ -12,7 +12,7 @@ int main(){
 	uint64_t val = 100;
 	uint64_t cnt = 0;
 
-	for(i='a'; i<='j'; i++){
+	for(i='j'; i>='d'; i--){
 		for(int j=0; j<STRING_LEN-1; j++){
 			key[j] = i;
 		}
@@ -24,14 +24,17 @@ int main(){
 
 	val = 100;
 	cnt = 0;
-	for(i='a'; i<='j'; i++){
+	for (i = 'j'; i >= 'd'; i--){
 		for(int j=0; j<STRING_LEN-1; j++){
 			key[j] = i;
 		}
 		key[STRING_LEN-1]='\0';
 		cnt++;
 		val*=cnt;
-		if(val== p->find(key)){
+
+		uint64_t result = p->find(key);
+
+		if(val== result){
 			printf("key :%s founds\n",key);		
 		}
 		else{

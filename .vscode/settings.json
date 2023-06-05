@@ -1,5 +1,6 @@
 {
   "files.associations": {
+    "__node_handle": "cpp",
     "__bit_reference": "cpp",
     "__bits": "cpp",
     "__config": "cpp",
@@ -8,7 +9,6 @@
     "__hash_table": "cpp",
     "__locale": "cpp",
     "__mutex_base": "cpp",
-    "__node_handle": "cpp",
     "__split_buffer": "cpp",
     "__threading_support": "cpp",
     "__tuple": "cpp",
@@ -61,6 +61,8 @@
     "chrono": "cpp",
     "compare": "cpp",
     "concepts": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "deque": "cpp",
+    "stack": "cpp"
   }
 }

@@ -1,15 +1,5 @@
-#include "btree.hpp"
-#include <iostream>
-#include <stack>
-
-btree::btree(){
-	root = new page(LEAF);
-	height = 1;
-};
-
-void btree::insert(char *key, uint64_t val){
-	// Please implement this function in project 2.
-	std::stack<page*> stack;
+void btree::insert(char *key, uint64_t val) {
+    std::stack<page*> stack;
     page* current_page = root;
 
     while (current_page->get_type() != LEAF) {
@@ -18,7 +8,7 @@ void btree::insert(char *key, uint64_t val){
     }
 
     // Insert data into the leaf node
-    if (!current_page->is_full((uint64_t)key)) {
+    if (!current_page->is_full(key)) {
         current_page->insert(key, val);
     } else {
         char* parent_key = nullptr;
@@ -30,7 +20,7 @@ void btree::insert(char *key, uint64_t val){
             current_page = stack.top();
             stack.pop();
             
-            if (!current_page->is_full((uint64_t)parent_key)) {
+            if (!current_page->is_full(parent_key)) {
                 current_page->insert(parent_key, (uint64_t)new_page);
                 break;
             } else {
@@ -42,7 +32,7 @@ void btree::insert(char *key, uint64_t val){
         }
 
         // If the root was split, create a new root
-        if (stack.empty() && !current_page->is_full((uint64_t)parent_key)) {
+        if (stack.empty() && !current_page->is_full(parent_key)) {
             page* old_root = root;
             root = new page(INTERNAL);
             root->set_leftmost_ptr(old_root);
@@ -52,9 +42,8 @@ void btree::insert(char *key, uint64_t val){
     }
 }
 
-uint64_t btree::lookup(char *key){
-	// Please implement this function in project 2.
-	page* current_page = root;
+uint64_t btree::lookup(char *key) {
+    page* current_page = root;
 
     while (current_page->get_type() != LEAF) {
         current_page = (page*)current_page->find(key);

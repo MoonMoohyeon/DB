@@ -57,10 +57,10 @@ RM = /opt/homebrew/Cellar/cmake/3.22.2/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/moon/Downloads/proj2
+CMAKE_SOURCE_DIR = /Users/moon/Desktop/DB
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/moon/Downloads/proj2/build
+CMAKE_BINARY_DIR = /Users/moon/Desktop/DB/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/moon/Downloads/proj2/build/CMakeFiles /Users/moon/Downloads/proj2/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/moon/Desktop/DB/build/CMakeFiles /Users/moon/Desktop/DB/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/moon/Downloads/proj2/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/moon/Desktop/DB/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,48 +117,72 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named PROJ2
+# Target rules for targets named DB
 
 # Build rule for target.
-PROJ2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PROJ2
-.PHONY : PROJ2
+DB: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 DB
+.PHONY : DB
 
 # fast build rule for target.
-PROJ2/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/build
-.PHONY : PROJ2/fast
+DB/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/build
+.PHONY : DB/fast
 
-main_slotted_page.o: main_slotted_page.cpp.o
-.PHONY : main_slotted_page.o
+btree.o: btree.cpp.o
+.PHONY : btree.o
 
 # target to build an object file
-main_slotted_page.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/main_slotted_page.cpp.o
-.PHONY : main_slotted_page.cpp.o
+btree.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/btree.cpp.o
+.PHONY : btree.cpp.o
 
-main_slotted_page.i: main_slotted_page.cpp.i
-.PHONY : main_slotted_page.i
+btree.i: btree.cpp.i
+.PHONY : btree.i
 
 # target to preprocess a source file
-main_slotted_page.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/main_slotted_page.cpp.i
-.PHONY : main_slotted_page.cpp.i
+btree.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/btree.cpp.i
+.PHONY : btree.cpp.i
 
-main_slotted_page.s: main_slotted_page.cpp.s
-.PHONY : main_slotted_page.s
+btree.s: btree.cpp.s
+.PHONY : btree.s
 
 # target to generate assembly for a file
-main_slotted_page.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/main_slotted_page.cpp.s
-.PHONY : main_slotted_page.cpp.s
+btree.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/btree.cpp.s
+.PHONY : btree.cpp.s
+
+main_btree.o: main_btree.cpp.o
+.PHONY : main_btree.o
+
+# target to build an object file
+main_btree.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/main_btree.cpp.o
+.PHONY : main_btree.cpp.o
+
+main_btree.i: main_btree.cpp.i
+.PHONY : main_btree.i
+
+# target to preprocess a source file
+main_btree.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/main_btree.cpp.i
+.PHONY : main_btree.cpp.i
+
+main_btree.s: main_btree.cpp.s
+.PHONY : main_btree.s
+
+# target to generate assembly for a file
+main_btree.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/main_btree.cpp.s
+.PHONY : main_btree.cpp.s
 
 page.o: page.cpp.o
 .PHONY : page.o
 
 # target to build an object file
 page.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/page.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/page.cpp.o
 .PHONY : page.cpp.o
 
 page.i: page.cpp.i
@@ -166,7 +190,7 @@ page.i: page.cpp.i
 
 # target to preprocess a source file
 page.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/page.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/page.cpp.i
 .PHONY : page.cpp.i
 
 page.s: page.cpp.s
@@ -174,7 +198,7 @@ page.s: page.cpp.s
 
 # target to generate assembly for a file
 page.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/page.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/page.cpp.s
 .PHONY : page.cpp.s
 
 slot_header.o: slot_header.cpp.o
@@ -182,7 +206,7 @@ slot_header.o: slot_header.cpp.o
 
 # target to build an object file
 slot_header.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/slot_header.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/slot_header.cpp.o
 .PHONY : slot_header.cpp.o
 
 slot_header.i: slot_header.cpp.i
@@ -190,7 +214,7 @@ slot_header.i: slot_header.cpp.i
 
 # target to preprocess a source file
 slot_header.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/slot_header.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/slot_header.cpp.i
 .PHONY : slot_header.cpp.i
 
 slot_header.s: slot_header.cpp.s
@@ -198,7 +222,7 @@ slot_header.s: slot_header.cpp.s
 
 # target to generate assembly for a file
 slot_header.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/slot_header.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/slot_header.cpp.s
 .PHONY : slot_header.cpp.s
 
 # Help Target
@@ -209,10 +233,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... PROJ2"
-	@echo "... main_slotted_page.o"
-	@echo "... main_slotted_page.i"
-	@echo "... main_slotted_page.s"
+	@echo "... DB"
+	@echo "... btree.o"
+	@echo "... btree.i"
+	@echo "... btree.s"
+	@echo "... main_btree.o"
+	@echo "... main_btree.i"
+	@echo "... main_btree.s"
 	@echo "... page.o"
 	@echo "... page.i"
 	@echo "... page.s"

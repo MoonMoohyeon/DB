@@ -1,3 +1,0 @@
-C:/Users/propo/OneDrive/바탕 화면/DB/DB/out/build/x64-Debug/CMakeFiles/PROJ2.dir
-C:/Users/propo/OneDrive/바탕 화면/DB/DB/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-C:/Users/propo/OneDrive/바탕 화면/DB/DB/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

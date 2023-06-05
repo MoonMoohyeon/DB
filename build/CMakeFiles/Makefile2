@@ -54,16 +54,16 @@ RM = /opt/homebrew/Cellar/cmake/3.22.2/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/moon/Downloads/proj2
+CMAKE_SOURCE_DIR = /Users/moon/Desktop/DB
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/moon/Downloads/proj2/build
+CMAKE_BINARY_DIR = /Users/moon/Desktop/DB/build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/PROJ2.dir/all
+all: CMakeFiles/DB.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/PROJ2.dir/clean
+clean: CMakeFiles/DB.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PROJ2.dir
+# Target rules for target CMakeFiles/DB.dir
 
 # All Build rule for target.
-CMakeFiles/PROJ2.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/moon/Downloads/proj2/build/CMakeFiles --progress-num=1,2,3,4 "Built target PROJ2"
-.PHONY : CMakeFiles/PROJ2.dir/all
+CMakeFiles/DB.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/moon/Desktop/DB/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target DB"
+.PHONY : CMakeFiles/DB.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PROJ2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/moon/Downloads/proj2/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PROJ2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/moon/Downloads/proj2/build/CMakeFiles 0
-.PHONY : CMakeFiles/PROJ2.dir/rule
+CMakeFiles/DB.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/moon/Desktop/DB/build/CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/DB.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/moon/Desktop/DB/build/CMakeFiles 0
+.PHONY : CMakeFiles/DB.dir/rule
 
 # Convenience name for target.
-PROJ2: CMakeFiles/PROJ2.dir/rule
-.PHONY : PROJ2
+DB: CMakeFiles/DB.dir/rule
+.PHONY : DB
 
 # clean rule for target.
-CMakeFiles/PROJ2.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PROJ2.dir/build.make CMakeFiles/PROJ2.dir/clean
-.PHONY : CMakeFiles/PROJ2.dir/clean
+CMakeFiles/DB.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DB.dir/build.make CMakeFiles/DB.dir/clean
+.PHONY : CMakeFiles/DB.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

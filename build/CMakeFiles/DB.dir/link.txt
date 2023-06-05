@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/DB.dir/main_btree.cpp.o CMakeFiles/DB.dir/page.cpp.o CMakeFiles/DB.dir/slot_header.cpp.o CMakeFiles/DB.dir/btree.cpp.o -o DB 
